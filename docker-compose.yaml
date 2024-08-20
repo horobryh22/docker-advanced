@@ -3,21 +3,43 @@ version: "3"
 services:
   frontend:
     build:
-      context: ./frontend #где лежит Dockerfile
+      context: ./frontend # где лежит Dockerfile
       args:
-        PORT: "3000"
+        PORT: ${FRONTEND_PORT}
+        APP_HOST: ${FRONTEND_API_HOST}
     ports:
-      - "3001:3000"
+      - "${EXTERNAL_FRONTEND_PORT}:${FRONTEND_PORT}"
     depends_on:
-      - backend #здесь мы говорим, что этот сервис зависит от сервиса backend и frontend не будет запущен, пока не запустится backend
+      - backend # здесь мы говорим, от какого сервиса зависит этот сервис
+
   backend:
     build:
-      context: ./backend #где лежит Dockerfile
+      context: ./backend # где лежит Dockerfile
       args:
-        PORT: '5005'
+        PORT: ${BACKEND_PORT}
     ports:
-      - "3002:5005"
+      - "${EXTERNAL_BACKEND_PORT}:${BACKEND_PORT}"
     environment:
-      PORT: "5005"
+      PORT: ${BACKEND_PORT}
+      DB_USER: test_user
+      DB_PASSWORD: test_password
+      DB_HOST: postgres # здесь должно быть указано имя сервиса, а не localhost
+      DB_NAME: test_database
+      DB_PORT: ${DB_PORT} # здесь должнен быть указан внутренний порт сервиса postgres, внутри сети используется 5432
+    depends_on:
+      - postgres # здесь мы говорим, от какого сервиса зависит этот сервис
 
+  postgres:
+    image: postgres:14
+    environment:
+      POSTGRES_USER: test_user
+      POSTGRES_PASSWORD: test_password
+      POSTGRES_DB: test_database
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "${EXTERNAL_DB_PORT}:${DB_PORT}"
+
+volumes:
+  postgres_data:
 

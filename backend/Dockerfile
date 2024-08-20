@@ -15,7 +15,7 @@ COPY package.json package-lock.json ./
 RUN npm install
 
 # Копируем оставшиеся файлы приложения
-COPY app.js ./
+COPY . .
 
 # Открываем порт
 EXPOSE ${PORT}
