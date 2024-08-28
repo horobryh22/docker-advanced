@@ -20,10 +20,10 @@ jobs:
 
       - name: Install dependencies # устанавливаем зависимости
         run: npm install
-        working-directory: backend/
+        working-directory: backend/ # т.к. package-json не находится в основной директории репозитория
 
 
       - name: Run test  # запускаем тесты
         run: npm test
-        working-directory: backend/
+        working-directory: backend/ # т.к. package-json не находится в основной директории репозитория
 
