@@ -1,0 +1,15 @@
+name: FIRST # название workflow (произвольное)
+
+on: [push] # на что должен запускаться
+
+jobs:
+  build: # название джобы (произвольное)
+    runs-on: ubuntu-latest # система на виртуальной машине
+    steps:
+      - uses: actions/checkout@v2 # плагин из репозитория гитхаба, позволяет спуллить проект на виртуальную машину
+      - name: Run a one-line script # название нашего шага (произвольное)
+        run: echo Hello, world # что будет делать этот шаг
+      - name: Run a multi-line script
+        run: | # символ | позволяет запускать несколько команд (много строчек)
+          echo Add other actions to build
+          echo test, and deploy your project
