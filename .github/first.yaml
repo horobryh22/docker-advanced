@@ -13,3 +13,5 @@ jobs:
         run: | # символ | позволяет запускать несколько команд (много строчек)
           echo Add other actions to build
           echo test, and deploy your project
+          
+
