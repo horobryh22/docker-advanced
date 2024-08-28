@@ -19,7 +19,11 @@ jobs:
           node-version: '20'
 
       - name: Install dependencies # устанавливаем зависимости
-        run: npm install
+        run: |
+          cd /home/runner/work/docker-advanced/docker-advanced/backend
+          npm install
 
       - name: Run test  # запускаем тесты
-        run: npm test
+        run: |
+          cd /home/runner/work/docker-advanced/docker-advanced/backend 
+          npm test
