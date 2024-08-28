@@ -1,4 +1,4 @@
-name: Run Tests on Pull Request to Production
+name: run tests on pull request to production
 
 on:
   pull_request: # запустится на открытие пулл реквеста в основную ветку
