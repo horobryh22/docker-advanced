@@ -11,7 +11,7 @@ ENV PORT=$PORT
 WORKDIR /app
 
 # Копируем package.json и lock файл и устанавливаем зависимости
-COPY package.json ./
+COPY package.json package-lock.json ./
 RUN npm install
 
 # Копируем оставшиеся файлы приложения
