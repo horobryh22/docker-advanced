@@ -20,10 +20,10 @@ jobs:
 
       - name: Install dependencies # устанавливаем зависимости
         run: |
-          cd /home/runner/work/docker-advanced/docker-advanced/backend
+          cd /home/runner/work/docker-advanced/backend 
           npm install
 
       - name: Run test  # запускаем тесты
         run: |
-          cd /home/runner/work/docker-advanced/docker-advanced/backend 
+          cd /home/runner/work/docker-advanced/backend 
           npm test
