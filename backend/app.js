@@ -24,7 +24,8 @@ app.post('/api/items', async (req, res) => {
 // Маршрут для получения всех элементов из базы данных
 app.get('/api/items', async (req, res) => {
     try {
-        const items = await db('items').select('*');
+        // const items = await db('items').select('*');
+        const items = []; // сделано для теста
         res.json(items);
     } catch (err) {
         console.error(err.message, err);
@@ -84,6 +85,9 @@ app.delete('/api/items/:id', async (req, res) => {
         res.status(500).send('Server Error');
     }
 });
+
+// Экспортируем приложение
+module.exports = app;
 
 // Запуск сервера
 app.listen(PORT, () => {
