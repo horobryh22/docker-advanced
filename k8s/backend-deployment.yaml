@@ -1,0 +1,33 @@
+apiVersion: apps/v1 # версия, можно посмотреть в доке кубера
+kind: Deployment # cущность
+metadata:
+  name: backend-deployment
+  labels:
+    app: backend-pod
+spec:
+  #replicas: 4 # создаем 4 инстанса нашего приложения (4 пода), которыми будет управлять этот Deployment
+  selector: # секлектор по которому выбираются контейнеры (поды), которыми будет управлять данный deployment
+    matchLabels:
+      project: backend-pod # лейблы которые мы указываем для самих подов (сущность Pod), чтобы deployment управлял ими
+  template: # создаем наш под непосредственно внутри файла deployment
+    metadata:
+      labels:
+        project: backend-pod
+    spec:
+      containers:
+        - name: backend-pod
+          image: abazuntts/k8s-back:latest
+          resources: # указываем какие ресурсы мы хотим настроить для одного инстанса приложения (одной ноды)
+            requests: # сколько минимум ресурсов нужно запросиьт для нрашего приложения у нашего кластера
+              memory: "64Mi"
+              cpu: "150m" # 15% от всего нашего кластера, если ресурса требуемого нет, приложение не запустится (Pending)
+            limits: # максимальный лимит, сколько может потреблять наше приложение (наш под), если выходим за этот лимит, то к8s убьет его
+              memory: "150Mi"
+              cpu: "250m"
+          ports:
+            - containerPort: 8000 # здесь говорим какой порт открыть наружу
+          env:
+            - name: MY_POD_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.podIP

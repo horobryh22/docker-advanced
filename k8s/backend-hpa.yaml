@@ -1,0 +1,18 @@
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler # сущность которая позволяет гибко управлять скейлингом (увеличивать или уменьшать количество подов)
+metadata:
+  name: backend-hpa
+spec:
+  scaleTargetRef: # связываем эту сущность с Deployment (указываем чем ей управлять)
+    apiVersion: apps/v1
+    kind: Deployment
+    name: backend-deployment
+  minReplicas: 1
+  maxReplicas: 5
+  metrics: # на какие метрики нужно смотреть
+    - type: Resource
+      resource:
+        name: memory # смотрим на память
+        target:
+          type: Utilization
+          averageUtilization: 45 # когда среднее значение памяти будет равно этому число, то количество подов будет увеличиваться

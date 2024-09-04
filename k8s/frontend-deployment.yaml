@@ -1,0 +1,20 @@
+apiVersion: apps/v1 # версия, можно посмотреть в доке кубера
+kind: Deployment # cущность
+metadata:
+  name: frontend-deployment
+  labels:
+    app: frontend-pod
+spec:
+  selector: # секлектор по которому выбираются контейнеры (поды), которыми будет управлять данный deployment
+    matchLabels:
+      project: frontend-pod # лейблы которые мы указываем для самих подов (сущность Pod), чтобы deployment управлял ими
+  template: # создаем наш под непосредственно внутри файла deployment
+    metadata:
+      labels:
+        project: frontend-pod
+    spec:
+      containers:
+        - name: frontend-pod
+          image: abazuntts/k8s-front:latest
+          ports:
+            - containerPort: 3000 # здесь говорим какой порт открыть наружу

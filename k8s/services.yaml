@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend-service
+spec:
+  type: LoadBalancer # балансировщик нагрузки, соединяет наш кластер с внешним миром
+  selector:
+    project: backend-pod # указываем селектор, который указывается для самого пода, не для Deployment (если под объявляется внутри Deployment файла)
+  ports:
+    - protocol: TCP
+      port: 8000 # порт который открывается на сервисе, для доступа к нему
+      targetPort: 8000 # порт который разворачивается в контейнере (указан в докер образе?, или указываем при запуске контейнера)
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend-service
+spec:
+  type: LoadBalancer # балансировщик нагрузки, соединяет наш кластер с внешним миром
+  selector:
+    project: frontend-pod # указываем селектор, который указывается для самого пода, не для Deployment (если под объявляется внутри Deployment файла)
+  ports:
+    - protocol: TCP
+      port: 3000 # порт который открывается на сервисе, для доступа к нему
+      targetPort: 3000 # порт который разворачивается в контейнере (указан в докер образе?, или указываем при запуске контейнера)
