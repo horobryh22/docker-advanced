@@ -3,6 +3,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: backend-config-map # имя по которому будем обращаться
+  # namespace: it-incubator можем так же указать для какого namespace создать
 data: # сами наши переменные с их значениями
   NODE_ENV: "STAGING"
   AUTH_SERVICE_API: "https://google.com/auth"

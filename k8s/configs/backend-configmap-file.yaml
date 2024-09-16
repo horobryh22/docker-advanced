@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: backend-config-map-file
+  # namespace: it-incubator можем так же указать для какого namespace создать
+data:
+  backend.txt: | #  backend.txt - это название файла, все что после | это содержимое файла. 
+    Файл конфигурации
+    ....сюда можно скопировать содержимого нашего файла конфигурации
